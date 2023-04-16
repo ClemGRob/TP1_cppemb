@@ -6,7 +6,9 @@ void Sub::connect_mqtt()
 {
     this->st_client = mosquitto_new(id_for_mqtt, true, NULL);
     mosquitto_connect(this->st_client, "broker.emqx.io", 1883, 20);
+    
     mosquitto_message_callback_set(this->st_client, message);
+
     mosquitto_subscribe(this->st_client, NULL, this->s_topic, 0);
     mosquitto_loop_forever(this->st_client, -1, 1);
     mosquitto_destroy(this->st_client);

@@ -12,16 +12,14 @@ typedef unsigned int uint32_t;
 
 using namespace std;
 
-class Sub
+class Pub
 {
 private:
     struct mosquitto *st_client;
     char* s_topic;
     void connect_mqtt();
 public:
-    Sub(char* s_topic);
+    Pub(char* s_topic);
     void sets_topic(char* s_topic);
     
 };
-void message(struct mosquitto *st_client, void *userdata, const struct mosquitto_message *st_message);
-void message2(struct mosquitto *st_client, void *userdata, const struct mosquitto_message *st_message);
