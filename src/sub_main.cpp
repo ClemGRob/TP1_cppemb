@@ -1,13 +1,8 @@
-#include <iostream>
-#include <cstring>
-#include <mosquitto.h>
-#include "../include/sub.h"
-
-
+#include "../include/sub.hpp"
 int main() {
     mosquitto_lib_init();
-    struct mosquitto *client = mosquitto_new("clem", true, NULL);
-    connect_mqtt(client);
-
+    char* yolo = "/ynov/bordeau/";
+    Sub mysub(yolo);
+    // Subululu &mysub = *(new Subululu("/Ynov/Bordeau/"));
     return 0;
 }

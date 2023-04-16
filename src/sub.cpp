@@ -1,23 +1,30 @@
-#include <iostream>
-#include <cstring>
-#include <mosquitto.h>
-#include "../include/sub.h"
+#include "../include/sub.hpp"
 
-using namespace std;
+static char* id_for_mqtt = "clem";
+
+void Sub::connect_mqtt()
+{
+    this->st_client = mosquitto_new(id_for_mqtt, true, NULL);
+    mosquitto_connect(this->st_client, "broker.emqx.io", 1883, 20);
+    mosquitto_message_callback_set(this->st_client, message);
+    mosquitto_subscribe(this->st_client, NULL, this->s_topic, 0);
+    mosquitto_loop_forever(this->st_client, -1, 1);
+    mosquitto_destroy(this->st_client);
+    mosquitto_lib_cleanup();
+}
+
+Sub::Sub(char* s_topic)
+{
+    this->s_topic=s_topic;
+    this->connect_mqtt();
+}
+
+void Sub::sets_topic(char* s_topic)
+{
+    this->s_topic=s_topic;
+}
 
 void message(struct mosquitto *st_client, void *userdata, const struct mosquitto_message *st_message)
 {
     cout << "message du topic " << st_message->topic << ": " << (char*) st_message->payload << endl;
 }
-
-void connect_mqtt(struct mosquitto *client)
-{
-    mosquitto_connect(client, "broker.emqx.io", 1883, 60);
-    mosquitto_message_callback_set(client, message);
-    mosquitto_subscribe(client, NULL, "/ynov/bordeau/", 0);
-    mosquitto_loop_forever(client, -1, 1);
-    mosquitto_destroy(client);
-    mosquitto_lib_cleanup();
-}
-
-
