@@ -1,10 +1,12 @@
 #include "../include/pub.hpp"
 char s_id_for_mqtt[] = "clem_pub";
-char topic[] = "/ynov/bordeau/";
+char s_topic[] = "/ynov/bordeaux/";
+char s_host[] = "broker.emqx.io";
+char s_msg[]="mon message";
 
 int main() {
     mosquitto_lib_init();
-    
-    Pub myPub(topic);
+    Pub myPub(s_host,s_id_for_mqtt, s_topic);
+    myPub.publish(s_msg);
     return 0;
 }

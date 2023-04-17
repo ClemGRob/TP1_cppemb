@@ -1,28 +1,29 @@
 #include "../include/pub.hpp"
 
 
-char const msg[] = "aaaaaaaaaaaaaaaaaaa";
+int port = 1883;
+int timeout = 5;
 
-void Pub::connect_mqtt()
+
+void Pub::publish(char* msg)
 {
-    this->st_client = mosquitto_new(id_for_mqtt, true, NULL);
-    //mosquitto_connect(this->st_client, "broker.emqx.io", 1883, 20);
-    int rc = mosquitto_connect(this->st_client, "broker.emqx.io", 1883, 20);
-    if (rc != MOSQ_ERR_SUCCESS) {
-        cerr << "Erreur : impossible de se connecter au broker MQTT." << endl;
-        mosquitto_destroy(this->st_client);
-        mosquitto_lib_cleanup();
-    }
-    else
-    {
         mosquitto_publish(this->st_client, NULL, this->s_topic, strlen(msg), msg, 0, false);
         mosquitto_destroy(this->st_client);
         mosquitto_lib_cleanup();
     }
-}
-
-Pub::Pub(char* s_topic)
+void Pub::connect_mqtt()
 {
+    this->st_client = mosquitto_new(this->s_id_for_mqtt, true, NULL);
+    // mosquitto_connect(this->st_client,this->s_host, port, timeout);
+    mosquitto_connect(this->st_client, "broker.emqx.io", 1883, 20);
+    
+}
+    
+
+Pub::Pub(char* s_host,char* s_id_for_mqtt, char* s_topic)
+{
+    this->s_host=s_host;
+    this->s_id_for_mqtt=s_id_for_mqtt;
     this->s_topic=s_topic;
     this->connect_mqtt();
 }

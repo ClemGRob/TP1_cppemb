@@ -16,10 +16,13 @@ class Pub
 {
 private:
     struct mosquitto *st_client;
+    char* s_host;
+    char* s_id_for_mqtt;
     char* s_topic;
     void connect_mqtt();
 public:
-    Pub(char* s_topic);
+    void publish(char* msg);
+    Pub(char* s_host,char* s_id_for_mqtt, char* s_topic);
     void sets_topic(char* s_topic);
     
 };
