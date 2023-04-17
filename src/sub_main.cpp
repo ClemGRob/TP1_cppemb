@@ -1,7 +1,7 @@
 #include "../include/sub.hpp"
 int main() {
     mosquitto_lib_init();
-    char* yolo = "/ynov/bordeau/";
-    Sub mysub(yolo);
+    char topic[] = "/ynov/bordeau/";
+    Sub mysub(topic);
     return 0;
 }

@@ -1,6 +1,7 @@
 #include "../include/pub.hpp"
 
-static char* id_for_mqtt = "clem2";
+char const id_for_mqtt[] = "clem_pub";
+char const msg[] = "aaaaaaaaaaaaaaaaaaa";
 
 void Pub::connect_mqtt()
 {
@@ -14,7 +15,7 @@ void Pub::connect_mqtt()
     }
     else
     {
-        mosquitto_publish(this->st_client, NULL, this->s_topic, 3, "lalala", 0, false);
+        mosquitto_publish(this->st_client, NULL, this->s_topic, strlen(msg), msg, 0, false);
         mosquitto_destroy(this->st_client);
         mosquitto_lib_cleanup();
     }

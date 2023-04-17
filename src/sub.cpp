@@ -1,6 +1,6 @@
 #include "../include/sub.hpp"
 
-static char* id_for_mqtt = "clem";
+char const id_for_mqtt[] = "clem_sub";
 
 void Sub::connect_mqtt()
 {
