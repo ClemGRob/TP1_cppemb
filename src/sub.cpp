@@ -1,27 +1,30 @@
 #include "../include/sub.hpp"
 
-char const id_for_mqtt[] = "clem_sub";
+int port = 1883;
+int timeout = 5;
 
 void Sub::connect_mqtt()
 {
-    this->st_client = mosquitto_new(id_for_mqtt, true, NULL);
-    mosquitto_connect(this->st_client, "broker.emqx.io", 1883, 20);
-    
-    mosquitto_message_callback_set(this->st_client, message);
+    this->st_client = mosquitto_new(this->s_id_for_mqtt, true, NULL);
+    mosquitto_connect(this->st_client,this->s_host, port, timeout);
 
+    mosquitto_message_callback_set(this->st_client, message);
     mosquitto_subscribe(this->st_client, NULL, this->s_topic, 0);
     mosquitto_loop_forever(this->st_client, -1, 1);
+
     mosquitto_destroy(this->st_client);
     mosquitto_lib_cleanup();
 }
 
-Sub::Sub(char* s_topic)
+Sub::Sub(char* s_host,char*  s_id_for_mqtt,char*  s_topic)
 {
+    this->s_host=s_host;
+    this->s_id_for_mqtt=s_id_for_mqtt;
     this->s_topic=s_topic;
     this->connect_mqtt();
 }
 
-void Sub::sets_topic(char* s_topic)
+void Sub::set_topic(char* s_topic)
 {
     this->s_topic=s_topic;
 }

@@ -17,11 +17,12 @@ class Sub
 private:
     struct mosquitto *st_client;
     char* s_topic;
+    char* s_host;
+    char*  s_id_for_mqtt;
     void connect_mqtt();
 public:
-    Sub(char* s_topic);
-    void sets_topic(char* s_topic);
+    Sub(char* s_host,char*  s_id_for_mqtt,char*  s_topic);
+    void set_topic(char* s_topic);
     
 };
 void message(struct mosquitto *st_client, void *userdata, const struct mosquitto_message *st_message);
-void message2(struct mosquitto *st_client, void *userdata, const struct mosquitto_message *st_message);

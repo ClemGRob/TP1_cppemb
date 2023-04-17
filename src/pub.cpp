@@ -1,6 +1,6 @@
 #include "../include/pub.hpp"
 
-char const id_for_mqtt[] = "clem_pub";
+
 char const msg[] = "aaaaaaaaaaaaaaaaaaa";
 
 void Pub::connect_mqtt()
