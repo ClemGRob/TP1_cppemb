@@ -2,7 +2,7 @@
 char s_id_for_mqtt[] = "clem_pub";
 char s_topic[] = "/ynov/bordeaux/";
 char s_host[] = "broker.emqx.io";
-char s_msg[]="mon message";
+char s_msg[]="clement";
 
 int main() {
     mosquitto_lib_init();
